@@ -80,13 +80,15 @@ FROM dev1;
      
      C) Le rôle de l'équipe DevSecOps permet d'avoir tous les privilèges avec mode administrateur de la base:  
 
-```CREATE ROLE dev;
+```
+CREATE ROLE dev;
 CREATE ROLE test;
 CREATE ROLE devsecops;
 
 ---
 ```
-```GRANT 
+```
+GRANT 
 CREATE PROCEDURE,
 CREATE VIEW,
 CREATE SEQUENCE,
@@ -99,7 +101,8 @@ TO dev;
 
 ---
 ```
-```GRANT 
+```
+GRANT 
 CONNECT,
 CREATE SESSION,
 SELECT ANY TABLE
@@ -107,7 +110,8 @@ TO test;
 
 ---
 ```
-```GRANT
+```
+GRANT
 ALL PRIVILEGES
 TO devsecops WITH ADMIN OPTION;
 
@@ -119,17 +123,20 @@ TO devsecops WITH ADMIN OPTION;
    - **Attribuer à chaque utilisateur, le rôle qui lui correspond:** 
   
 
-```GRANT dev
+```
+GRANT dev
 TO dev1, dev2;
 
 ---
 ```
-```GRANT test
+```
+GRANT test
 TO tester1, tester2;
 
 ---
 ```
-```GRANT devsecops
+```
+GRANT devsecops
 TO devsecops1, devsecops2;
 
 ---
@@ -138,14 +145,16 @@ TO devsecops1, devsecops2;
    - **Limiter l'accès pour les testeurs de sorte qu'ils n'accèdent qu'à la table des employés "EMP":** 
   
 
-```REVOKE
+```
+REVOKE
 SELECT ANY TABLE
 FROM test;
 
 ---
 ```
 
- ```GRANT
+ ```
+ GRANT
 SELECT ON emp
 TO test;
 
@@ -157,7 +166,8 @@ TO test;
    - **Autoriser tous les utilisateurs sur le système pour interroger les données de la table EMP :** 
   
 
- ```GRANT
+ ```
+ GRANT
 SELECT ON emp
 TO dev, test, devsecops;
 
@@ -168,7 +178,8 @@ TO dev, test, devsecops;
 
  
  
-```REVOKE
+```
+REVOKE
 ALL PRIVILEGES
 ON emp
 FROM devsecops;
@@ -190,7 +201,8 @@ FROM devsecops;
 
 
 
-```CREATE PROFILE dev 
+```
+CREATE PROFILE dev 
 LIMIT
 SESSIONS_PER_USER UNLIMITED
 CPU_PER_SESSION 10000
@@ -218,7 +230,8 @@ PASSWORD_REUSE_TIME 10;
   * ***Taille maximale de l'SGA privée:*** ***25K***
   * ***Durée de vie en jours du mot de passe:*** ***60***
   * ***Nombre maximal de réutilisations de mot de passe:*** ***10***
-```CREATE PROFILE test 
+```
+CREATE PROFILE test 
 LIMIT
 SESSIONS_PER_USER 5
 CPU_PER_SESSION UNLIMITED
@@ -244,7 +257,8 @@ PASSWORD_REUSE_TIME 10;
   * ***Durée de vie en jours du mot de passe:*** ***60***
   * ***Nombre maximal de réutilisations de mot de passe:*** ***10***
 
-```CREATE PROFILE devsecops 
+```
+CREATE PROFILE devsecops 
 LIMIT
 SESSIONS_PER_USER UNLIMITED
 CPU_PER_SESSION UNLIMITED
@@ -260,7 +274,8 @@ PASSWORD_REUSE_TIME 10;
 ```
 
   - **Attribuer à l'utilisateur "dev1", le profile qui lui correspond:** 
-```ALTER USER dev1 PROFILE dev;
+```
+ALTER USER dev1 PROFILE dev;
 
 ---
 ```
